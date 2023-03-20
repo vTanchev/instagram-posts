@@ -1,0 +1,272 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* padding: 0;
+  margin: 0; */
+  font-family: Roboto, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  background: #ffffff;
+  margin: 15px;
+  width: 340px;
+}
+
+.preview {
+  background: #f9fafd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.layout-placeholder {
+  color: #464b5b;
+  font-size: 18px;
+}
+
+.accordion {
+  background: #e6ebff;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.accordion-title {
+  color: #0033ff;
+  font-weight: 800;
+  font-size: 18px;
+  margin: 0;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.form-control {
+  background-color: #ffffff;
+  border: 1px solid #d6dae4;
+  border-radius: 3px;
+  padding: 6px 12px;
+  height: 38px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 14px;
+}
+
+input[type="radio"] {
+  margin: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.radio-select {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+/* MY CSS CODE = */
+.preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+}
+/* Loader */
+.loader {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background-color: #ffffffe6;
+  z-index: 1;
+}
+/* spinner */
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #3d5af1 transparent #3d5af1 transparent;
+  border-radius: 50%;
+  animation: spin-anim 1.2s linear infinite;
+}
+@keyframes spin-anim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* cart container */
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin: 20px;
+  overflow: auto;
+}
+/* cart */
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+}
+/* profile */
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+/* user info */
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+/* profile picture */
+.profile-picture {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+}
+/* title & date */
+.title-date {
+  text-align: left;
+  margin-left: 10px;
+}
+/* nickname */
+.nickname {
+  font-size: 16px;
+  font-weight: 700;
+}
+/* date */
+.date {
+  font-size: 12px;
+}
+/* social media image */
+.social-media img {
+  width: 24px;
+  height: 24px;
+}
+/* post */
+.post {
+  margin-top: 10px;
+  /* height: calc((100vw - 315px - 200px - 10px) / 2); */
+  height: 325px;
+  width: 100%;
+}
+/* post image */
+.post img {
+  height: 100%;
+  width: 100%;
+}
+/* descriptin horizontal like */
+.des-hor-like {
+  display: flex;
+  flex-direction: column;
+}
+/* .hor-like {
+  align-self: flex-end;
+} */
+
+/* description */
+.description {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+/* span text */
+.blue-text {
+  color: #4f9de8;
+}
+/* horizontal line */
+.horizontal-line {
+  margin-top: 10px;
+  border-top: 1px solid #e0e0e0;
+  width: 100%;
+}
+/* likes */
+.likes-container {
+  margin: 10px 0;
+  display: flex;
+}
+/* like svg */
+.like-svg {
+  margin-right: 5px;
+}
+/* load more div */
+.load-more {
+  margin-top: 40px;
+  padding-bottom: 40px;
+}
+/* load more button */
+.btn {
+  border: none;
+  border-radius: 5px;
+  width: 138px;
+  padding: 20px;
+  background-color: #0081ff;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+/* disabled btn */
+.btn:disabled {
+  opacity: 0;
+}
+/* filter dark theme  */
+.dark-theme {
+  background-color: #161616;
+  color: #fff;
+}
+
+/*  Mobile: 768 width */
+@media only screen and (max-width: 768px) {
+  .card-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+/* Tablet: 992 width */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
