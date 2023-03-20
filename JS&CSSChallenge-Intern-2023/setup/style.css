@@ -226,9 +226,16 @@ input[type="radio"] {
   margin: 10px 0;
   display: flex;
 }
+
 /* like svg */
 .like-svg {
   margin-right: 5px;
+}
+/* like btn */
+.like-btn {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
 }
 /* load more div */
 .load-more {

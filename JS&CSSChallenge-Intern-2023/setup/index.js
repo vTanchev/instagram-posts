@@ -1,6 +1,6 @@
 "use strict";
 
-// state
+// State
 let allPostsDATA;
 
 // Section
@@ -15,17 +15,18 @@ const cardBackgroundColor = document.getElementById("cardBackgroundColor");
 // Card space between
 const cardSpaceBetween = document.getElementById("cardSpaceBetween");
 
+// heart svg
+const heartsvg = `<img class='like-svg' src="../icons/heart.svg" alt='heart' />`;
+
 // Choose theme
 const lightTheme = document.querySelector("#lightTheme");
 const darkTheme = document.querySelector("#darkTheme");
 
 // Filter by source
-const allPosts = document.querySelector("#all");
-const instagramPosts = document.querySelector("#instagram");
-const facebookPosts = document.querySelector("#facebook");
-const twitterPosts = document.querySelector("#twitter");
+const filterBy = document.querySelectorAll(".radio-group");
+const radioButtons = document.querySelectorAll('input[name="filterBySource"]');
 
-// loader & spinner
+// Loader & Spinner
 const loadingData = document.createElement("div");
 loadingData.classList.add("loader");
 const spiiner = document.createElement("div");
@@ -34,13 +35,13 @@ loadingData.appendChild(spiiner);
 
 preview.appendChild(loadingData);
 
-// cart container & cart
+// Card container
 const cardContainer = document.createElement("div");
 cardContainer.classList.add("card-container");
 
 preview.appendChild(cardContainer);
 
-//  load more button
+//  Load more button
 const loadMore = document.createElement("div");
 loadMore.classList.add("load-more");
 const loadMoreBtn = document.createElement("button");
@@ -52,7 +53,7 @@ preview.appendChild(loadMore);
 
 // RENDER & FUNCTIONS
 
-// fetch data
+// Fetch data
 const getAllPosts = () => {
   return fetch("../data.json")
     .then((response) => response.json())
@@ -66,7 +67,7 @@ const getAllPosts = () => {
     });
 };
 
-// transform date format
+// Transform date format
 const transformDateFormat = (date) => {
   const utcDate = new Date(date);
 
@@ -77,7 +78,7 @@ const transformDateFormat = (date) => {
   return `${day} ${month} ${year}`;
 };
 
-// get social media icon
+// Get social media icon
 const getSocialMediaIcon = (iconType) => {
   switch (iconType) {
     case "facebook":
@@ -94,6 +95,7 @@ const getSocialMediaIcon = (iconType) => {
   }
 };
 
+//  Text length function
 const textLengthChecker = (text) => {
   const isLong = text.length > 110;
 
@@ -104,12 +106,14 @@ const textLengthChecker = (text) => {
   }
 };
 
-// generate cart
+// Generate card
 const generateCardPost = (cardData) => {
   const { profile_image, name, date, source_type, image, caption, likes } =
     cardData;
+
   const card = document.createElement("div");
   card.classList.add("card");
+
   card.innerHTML = `
   <div class='profile'>
     <div class='user-info'>
@@ -134,7 +138,7 @@ const generateCardPost = (cardData) => {
       <div class='horizontal-line'>
       </div>
       <div class='likes-container'>
-        <img class='svg like-svg' src='../icons/heart.svg' />
+        <button class='like-btn'>${heartsvg}</button>
         <p class='like-value'>${likes}</p>
       </div>
     </div>
@@ -143,38 +147,64 @@ const generateCardPost = (cardData) => {
   cardContainer.appendChild(card);
 };
 
-// first 4 posts
-let firstEl = 0;
-let lastEl = 4;
+// let firstEl = 0;
+// let lastEl = 4;
+// onInitialOpening(firstEl, lastEl);
 
-onInitialOpening(firstEl, lastEl);
-
-async function onInitialOpening(start, end) {
+let loadedData, renderedData;
+// Render first 4 posts
+async function onInitialOpening() {
   await getAllPosts();
-  for (let i = start; i < end; i++) {
-    const cardData = allPostsDATA[i];
-    generateCardPost(cardData);
-  }
-
-  // const firstFourPosts = allPostsDATA.slice(start, end);
-  // firstFourPosts.map((cardData) => {
+  // for (let i = start; i < end; i++) {
+  //   const cardData = allPostsDATA[i];
   //   generateCardPost(cardData);
-  // });
+  // }
+
+  renderedData = allPostsDATA.slice(0, 4);
+  allPostsDATA.splice(0, 4);
+  renderedData.map((cardData) => {
+    generateCardPost(cardData);
+  });
 }
 
-// load more btn
+onInitialOpening();
+
+// Load more posts | button
 loadMoreBtn.addEventListener("click", () => {
-  console.log("load button");
-
-  firstEl += 4;
-  lastEl += 4;
-
-  if (firstEl < allPostsDATA.length) {
-    onInitialOpening(firstEl, lastEl);
-  } else {
+  if (!allPostsDATA.length) {
     loadMoreBtn.disabled = true;
+    return;
+  }
+
+  renderedData = allPostsDATA.slice(0, 4);
+  allPostsDATA.splice(0, 4);
+
+  if (!allPostsDATA.length) {
+    loadMoreBtn.disabled = true;
+    return;
   }
 });
+
+// Filter by source
+const loadMorePosts = (filterBy) => {
+  if (filterBy) {
+    renderedData = allPostsDATA
+      .filter((data) => data.source_type === filterBy)
+      .splice(0, 4);
+    console.log(renderedData);
+    renderedData.map((cardData) => {
+      generateCardPost(cardData);
+    });
+  }
+};
+
+for (const radioSelector of radioButtons) {
+  radioSelector.addEventListener("change", showSelected);
+}
+
+function showSelected() {
+  let filterCheck;
+}
 
 // Number of columns
 numberOfColumns.addEventListener("change", () => {
@@ -188,7 +218,7 @@ cardBackgroundColor.addEventListener("input", () => {
   );
 });
 
-//Card space between
+// Card space between
 cardSpaceBetween.addEventListener("input", () => {
   cardContainer.style.gap = cardSpaceBetween.value;
 });
@@ -204,4 +234,11 @@ lightTheme.addEventListener("click", () => {
   );
 });
 
-// Filter by source
+// Like post
+let likeBtns = document.getElementsByClassName("like-btn");
+
+for (let i = 0; i < likeBtns.length; i++) {
+  likeBtns[i].addEventListener("click", () => {
+    console.log(`here`);
+  });
+}
